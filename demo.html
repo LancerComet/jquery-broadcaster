@@ -1,0 +1,55 @@
+<html>
+	
+	<head>
+		<meta charset="utf-8">
+	</head>
+	
+	<body>
+		
+		<div>
+			<button id="disappear">点击我后触发 disappear 事件.</button>
+			<button id="eventOne">点击我后触发 eventOne 事件.</button>
+			<button id="disappearAddOn">点击我后给 disappear 再增加一个监听事件，输出 "啊♂"</button>		
+		</div>
+		
+		<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+		<script src="javascripts/jquery.broadcaster.js"></script>
+		
+		<script>
+			
+			$.$on("disappear", function (event, value) {
+				console.log("Event Name: " + event);
+				console.log("Event Value: " + value);
+				console.log("");
+			});
+			
+			$.$on("eventOne", function (event, value) {
+				console.log("Event Name: " + event);
+				console.log("Event Value:");
+				console.dir(value);
+				console.log("");
+			});
+			
+			$("#disappear").on("click", function () {
+				$.$broadcast("disappear", "testValue");
+			});
+			
+			$("#eventOne").on("click", function () {
+				$.$broadcast("eventOne", {
+					eventName: "eventOne",
+					author: "LancerComet"
+				});
+			});
+			
+			$("#disappearAddOn").on("click", function () {
+				$.$on("disappear", function () {
+					console.log("啊♂");
+					console.log("");
+				});
+			});
+			
+		</script>
+		
+	</body>
+	
+</html>
